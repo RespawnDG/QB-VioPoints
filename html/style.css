@@ -1,0 +1,53 @@
+/* Ensure that the UI is hidden by default */
+#points-ui {
+    display: none; /* Default hidden */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    width: 400px;
+    height: auto;
+    z-index: 9999;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+
+/* Header style */
+#points-ui h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    text-align: center;
+}
+
+/* Paragraph style */
+#points-ui p {
+    margin: 5px 0;
+}
+
+/* Message content style */
+#points-ui #message {
+    margin-bottom: 10px;
+}
+
+/* Close button style */
+#points-ui .close-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;  /* You can change this to something like 150px for a smaller button */
+    text-align: center;
+    font-size: 16px;
+}
+
+/* Close button hover effect */
+#points-ui .close-btn:hover {
+    background-color: darkred;
+}

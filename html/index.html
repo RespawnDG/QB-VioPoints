@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Violation Points</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            font-size: 24px;
+        }
+        .content {
+            margin-top: 20px;
+        }
+        .close-btn {
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        .close-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        /* Centering the UI without the grey background */
+        #points-ui {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.7);  /* Optional: Add slight background if needed */
+            padding: 20px;
+            width: 400px;
+            height: auto;
+            z-index: 9999;
+            color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Main UI container -->
+    <div id="points-ui">
+        <h2 id="title">Violation Points</h2>
+        <div id="message" class="content"></div>
+        <button id="close-btn" class="close-btn" style="position: absolute; top: 10px; right: 10px; padding: 10px;">Close</button>
+    </div>
+
+    <script>
+        // Listen for data from Lua to update the UI content
+        window.addEventListener('message', function(event) {
+            if (event.data.type === "open") {
+                document.getElementById("points-ui").style.display = "block";  // Make the UI visible
+                document.getElementById("title").innerHTML = event.data.title;
+                document.getElementById("message").innerHTML = event.data.message;
+            } else if (event.data.type === "close") {
+                console.log("Hiding UI");  // Debugging line to check if "close" is received
+                document.getElementById("points-ui").style.display = "none";  // Hide the UI
+            }
+        });
+
+        // Close button click event
+        document.getElementById("close-btn").addEventListener("click", function() {
+            console.log("Close button clicked");  // Debugging line to check if the button was clicked
+            // Trigger Lua callback to close the UI
+            fetch(`https://${GetParentResourceName()}/closeUI`, {
+                method: "POST",  // Send POST request to close the UI
+            });
+        });
+    </script>
+</body>
+</html>
